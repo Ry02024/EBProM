@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from tqdm.autonotebook import tqdm
 import calendar
 from datetime import date, timedelta, datetime
 import jpholiday
