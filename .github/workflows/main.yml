@@ -30,11 +30,11 @@ jobs:
 
     - name: データ前処理の実行
       run: |
-        python preprocess.py  # 前処理を行うスクリプト
+        python utils.py  # 前処理を行うスクリプト
 
     - name: モデルトレーニングの実行
       run: |
-        python train_model.py  # モデルをトレーニングするスクリプト
+        python machine_learning.py  # モデルをトレーニングするスクリプト
 
     # - name: シミュレーションの実行と評価
     #   run: |
