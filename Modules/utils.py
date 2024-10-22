@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import calendar
 from datetime import date, timedelta, datetime
 import jpholiday
+import os
+
 # データ読み込み関数
 def load_data(data_dir):
     print("データを読み込んでいます...")
