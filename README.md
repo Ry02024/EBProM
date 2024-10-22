@@ -68,21 +68,6 @@ README.md              # リポジトリの説明と使用方法
 3. **モジュールのカスタマイズ**  
    必要に応じて、`Modules/`フォルダ内のスクリプトを編集し、カスタム処理を追加してください。
 
-## 依存関係
-
-このプロジェクトの実行には、以下のPythonライブラリが必要です。
-
-- `pandas`
-- `numpy`
-- `lightgbm`
-- `scikit-learn`
-
-必要なライブラリは、以下のコマンドでインストールできます。
-
-```bash
-pip install -r requirements.txt
-```
-
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
