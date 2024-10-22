@@ -118,6 +118,7 @@ def fill_missing_values(join_data_df, test_df): #適切に平均値で保管で�
 # 特徴量作成関数
 def fill_features(join_data_df10):
     print("追加の特徴量を生成しています...")
+
     # 特徴量生成1: 商品、カテゴリ、店舗ごとの平均値を生成
     target_columns = ['product_id', 'store_id', 'category_id'] + [f'product_num_{i}' for i in range(1, 23)] + [f'product_price_{i}' for i in range(1, 23)]
     join_data_df10_feats = join_data_df10[target_columns]
@@ -126,31 +127,37 @@ def fill_features(join_data_df10):
     product_ave_num = join_data_df10_feats.groupby('product_id').mean().loc[:, 'product_num_1': 'product_num_22'].mean(axis=1)
     product_ave_price = join_data_df10_feats.groupby('product_id').mean().loc[:, 'product_price_1': 'product_price_22'].mean(axis=1)
 
-    join_data_df10.insert(3, 'product_ave_num', 0)
-    join_data_df10.insert(4, 'product_ave_price', 0)
+    # 既存の列をfloat64にキャスト
+    join_data_df10['product_ave_num'] = join_data_df10['product_ave_num'].astype('float64', errors='ignore')
+    join_data_df10['product_ave_price'] = join_data_df10['product_ave_price'].astype('float64', errors='ignore')
+
     for product_id in product_ave_num.index:
-        join_data_df10.loc[join_data_df10['product_id'] == product_id, 'product_ave_num'] = product_ave_num[product_id]
-        join_data_df10.loc[join_data_df10['product_id'] == product_id, 'product_ave_price'] = product_ave_price[product_id]
+        join_data_df10.loc[join_data_df10['product_id'] == product_id, 'product_ave_num'] = float(product_ave_num[product_id])
+        join_data_df10.loc[join_data_df10['product_id'] == product_id, 'product_ave_price'] = float(product_ave_price[product_id])
 
     # 2. カテゴリごとの平均個数と平均価格
     category_ave_num = join_data_df10.groupby('category_id').mean().loc[:, 'product_num_1': 'product_num_22'].mean(axis=1)
     category_ave_price = join_data_df10.groupby('category_id').mean().loc[:, 'product_price_1': 'product_price_22'].mean(axis=1)
 
-    join_data_df10.insert(5, 'category_ave_num', 0)
-    join_data_df10.insert(6, 'category_ave_price', 0)
+    # 既存の列をfloat64にキャスト
+    join_data_df10['category_ave_num'] = join_data_df10['category_ave_num'].astype('float64', errors='ignore')
+    join_data_df10['category_ave_price'] = join_data_df10['category_ave_price'].astype('float64', errors='ignore')
+
     for category_id in category_ave_num.index:
-        join_data_df10.loc[join_data_df10['category_id'] == category_id, 'category_ave_num'] = category_ave_num[category_id]
-        join_data_df10.loc[join_data_df10['category_id'] == category_id, 'category_ave_price'] = category_ave_price[category_id]
+        join_data_df10.loc[join_data_df10['category_id'] == category_id, 'category_ave_num'] = float(category_ave_num[category_id])
+        join_data_df10.loc[join_data_df10['category_id'] == category_id, 'category_ave_price'] = float(category_ave_price[category_id])
 
     # 3. 店舗ごとの平均個数と平均価格
     store_ave_num = join_data_df10.groupby('store_id').mean().loc[:, 'product_num_1': 'product_num_22'].mean(axis=1)
     store_ave_price = join_data_df10.groupby('store_id').mean().loc[:, 'product_price_1': 'product_price_22'].mean(axis=1)
 
-    join_data_df10.insert(7, 'store_ave_num', 0)
-    join_data_df10.insert(8, 'store_ave_price', 0)
+    # 既存の列をfloat64にキャスト
+    join_data_df10['store_ave_num'] = join_data_df10['store_ave_num'].astype('float64', errors='ignore')
+    join_data_df10['store_ave_price'] = join_data_df10['store_ave_price'].astype('float64', errors='ignore')
+
     for store_id in store_ave_num.index:
-        join_data_df10.loc[join_data_df10['store_id'] == store_id, 'store_ave_num'] = store_ave_num[store_id]
-        join_data_df10.loc[join_data_df10['store_id'] == store_id, 'store_ave_price'] = store_ave_price[store_id]
+        join_data_df10.loc[join_data_df10['store_id'] == store_id, 'store_ave_num'] = float(store_ave_num[store_id])
+        join_data_df10.loc[join_data_df10['store_id'] == store_id, 'store_ave_price'] = float(store_ave_price[store_id])
 
     # 特徴量生成2: 商品、カテゴリ、店舗ごとの組み合わせを生成
     join_data_df10.insert(9, 'p_c_nun', join_data_df10['product_ave_num'] * join_data_df10['category_ave_num'])
@@ -166,6 +173,7 @@ def fill_features(join_data_df10):
 
     print("追加の特徴量生成が完了しました。")
     return join_data_df10
+
 
 import pandas as pd
 
