@@ -35,8 +35,18 @@ def preprocess_data(sales_history_df, item_categories_df, category_names_df):
     join_data_df = join_data_df.drop(['date', 'year', 'month'], axis=1)
 
     print("データの前処理が完了しました。")
+    # 前処理したデータを保存
+    output_path = 'Data/Preprocess/preprocess.csv'
+    join_data_df_final.to_csv(output_path, index=False)
+    print(f"前処理データを {output_path} に保存しました。")
+    
     return join_data_df
 
+if __name__ == "__main__":
+    data_dir = 'Data/'  # データが保存されているディレクトリ
+    sales_history_df, item_categories_df, category_names_df, test_df = load_data(data_dir)
+    preprocess_data(sales_history_df, item_categories_df, category_names_df)
+    
 # 特徴量生成関数
 def generate_features(join_data_df):
     print("特徴量を生成しています...")
