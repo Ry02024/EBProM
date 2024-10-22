@@ -13,6 +13,14 @@ jobs:
     steps:
     - name: リポジトリのチェックアウト
       uses: actions/checkout@v2
+      with:
+        lfs: true  # LFSファイルも一緒にチェックアウトする
+
+    - name: Git LFSのセットアップ
+      run: |
+        sudo apt-get install git-lfs
+        git lfs install
+        git lfs pull  # LFSファイルをダウンロード
 
     - name: Pythonのセットアップ
       uses: actions/setup-python@v2
