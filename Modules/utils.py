@@ -46,8 +46,13 @@ if __name__ == "__main__":
     # 前処理を行い、その結果をjoin_data_df_finalに保存
     join_data_df_final = preprocess_data(sales_history_df, item_categories_df, category_names_df)
     
+    # 保存するディレクトリが存在しない場合は作成
+    output_dir = 'Data/Preprocess'
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
     # 前処理したデータを保存
-    output_path = 'Data/Preprocess/preprocess.csv'
+    output_path = os.path.join(output_dir, 'preprocess.csv')
     join_data_df_final.to_csv(output_path, index=False)
     print(f"前処理データを {output_path} に保存しました。")
     
