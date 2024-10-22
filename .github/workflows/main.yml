@@ -32,18 +32,18 @@ jobs:
       run: |
         python Modules/utils.py  # 前処理を行うスクリプト
 
-    - name: モデルトレーニングの実行
-      run: |
-        python Modules/machine_learning.py  # モデルをトレーニングするスクリプト
+    # - name: モデルトレーニングの実行
+    #   run: |
+    #     python Modules/machine_learning.py  # モデルをトレーニングするスクリプト
 
     # - name: シミュレーションの実行と評価
     #   run: |
     #     python simulation.py  # シミュレーションを実行するスクリプト
 
-    # - name: モデル保存と結果のコミット
-    #   run: |
-    #     git config --local user.email "you@example.com"
-    #     git config --local user.name "GitHub Actions"
-    #     git add .
-    #     git commit -m "新しいモデルと結果をコミット"
-    #     git push
+    - name: 前処理結果をコミットしてプッシュ
+      run: |
+        git config --local user.email "tan0ry02024@gmail.com"
+        git config --local user.name "Ry02024"
+        git add Data/Preprocess/preprocess.csv  # 前処理結果ファイルを追加
+        git commit -m "前処理結果を追加"
+        git push
