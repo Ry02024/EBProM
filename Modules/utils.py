@@ -12,6 +12,21 @@ def load_data(data_dir):
     category_names_df = pd.read_csv(data_dir + 'category_names.csv')
     test_df = pd.read_csv(data_dir + 'test.csv', index_col=0)
     print("データの読み込みが完了しました。")
+
+    # データの確認
+    print("sales_history_df カラム:", sales_history_df.columns)
+    print("item_categories_df カラム:", item_categories_df.columns)
+    print("category_names_df カラム:", category_names_df.columns)
+    print("test_df カラム:", test_df.columns)
+
+    print("sales_history_df の最初の数行:")
+    print(sales_history_df.head())
+    
+    print("item_categories_df の最初の数行:")
+    print(item_categories_df.head())
+    
+    print("category_names_df の最初の数行:")
+    print(category_names_df.head())
     return sales_history_df, item_categories_df, category_names_df, test_df
 
 # データ前処理関数
