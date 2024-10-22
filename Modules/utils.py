@@ -218,7 +218,7 @@ def generate_sliding_window_datasets(df,
     train_df = pd.DataFrame()
 
     # スライディングウィンドウの適用
-    for i in tqdm(range(n_steps), desc="スライディングウィンドウ適用中"):
+    for i in range(n_steps):
         # 基本カラムを抽出
         tmp1_df = catarog_copy2.loc[:, 'main_flag':'p_c_s_price'].copy()
 
