@@ -20,6 +20,7 @@ Modules/               # 機械学習とシミュレーションのスクリプ�
       └── main.yml               # 自動化のフローレシピ（GitHub Actions用のYAMLファイル）
 EBProM.ipynb           # プロジェクトの実行に使用されるJupyterノートブック
 README.md              # リポジトリの説明と使用方法
+requirements.txt
 ```
 
 ### 説明:
