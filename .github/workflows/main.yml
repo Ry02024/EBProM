@@ -26,15 +26,15 @@ jobs:
     - name: ディレクトリ移動とリポジトリセットアップ
       run: |
         git clone https://github.com/Ry02024/EBProM.git
-        cd EBProM/Modules
+        cd EBProM
 
     - name: データ前処理の実行
       run: |
-        python utils.py  # 前処理を行うスクリプト
+        python Modules/utils.py  # 前処理を行うスクリプト
 
     - name: モデルトレーニングの実行
       run: |
-        python machine_learning.py  # モデルをトレーニングするスクリプト
+        python Modules/machine_learning.py  # モデルをトレーニングするスクリプト
 
     # - name: シミュレーションの実行と評価
     #   run: |
