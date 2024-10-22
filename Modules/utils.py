@@ -147,7 +147,6 @@ def fill_features(join_data_df10):
     return join_data_df10
 
 import pandas as pd
-from tqdm import tqdm
 
 def generate_sliding_window_datasets(df,
                                      columns_to_front=None,
