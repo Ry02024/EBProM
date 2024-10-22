@@ -61,7 +61,7 @@ def complete_catalog(join_data_df):
     product_id_pd = join_data_df[['product_id', 'category_id']].drop_duplicates().sort_values('product_id').copy()
     join_data_df7 = pd.DataFrame()
 
-    for store_id in tqdm(sorted(join_data_df['store_id'].unique())):
+    for store_id in sorted(join_data_df['store_id'].unique()):
         store_data = join_data_df.loc[join_data_df['store_id'] == store_id]
         merged_data = pd.merge(store_data, product_id_pd, on='product_id', how='right')
         merged_data['category_id_x'] = merged_data['category_id_y']
@@ -107,7 +107,7 @@ def fill_features(join_data_df10):
 
     join_data_df10.insert(3, 'product_ave_num', 0)
     join_data_df10.insert(4, 'product_ave_price', 0)
-    for product_id in tqdm(product_ave_num.index):
+    for product_id in product_ave_num.index:
         join_data_df10.loc[join_data_df10['product_id'] == product_id, 'product_ave_num'] = product_ave_num[product_id]
         join_data_df10.loc[join_data_df10['product_id'] == product_id, 'product_ave_price'] = product_ave_price[product_id]
 
@@ -117,7 +117,7 @@ def fill_features(join_data_df10):
 
     join_data_df10.insert(5, 'category_ave_num', 0)
     join_data_df10.insert(6, 'category_ave_price', 0)
-    for category_id in tqdm(category_ave_num.index):
+    for category_id in category_ave_num.index:
         join_data_df10.loc[join_data_df10['category_id'] == category_id, 'category_ave_num'] = category_ave_num[category_id]
         join_data_df10.loc[join_data_df10['category_id'] == category_id, 'category_ave_price'] = category_ave_price[category_id]
 
@@ -127,7 +127,7 @@ def fill_features(join_data_df10):
 
     join_data_df10.insert(7, 'store_ave_num', 0)
     join_data_df10.insert(8, 'store_ave_price', 0)
-    for store_id in tqdm(store_ave_num.index):
+    for store_id in store_ave_num.index:
         join_data_df10.loc[join_data_df10['store_id'] == store_id, 'store_ave_num'] = store_ave_num[store_id]
         join_data_df10.loc[join_data_df10['store_id'] == store_id, 'store_ave_price'] = store_ave_price[store_id]
 
@@ -441,7 +441,6 @@ def feature_engineering(train_df, test_df, group_cols, target_col, feature_suffi
     return train_df, test_df
 
 import pandas as pd
-from tqdm import tqdm
 
 def create_sales_uptrend_flag(train_df, test_df, flag_num=15, test_product_ids=[2900075]):
     """
