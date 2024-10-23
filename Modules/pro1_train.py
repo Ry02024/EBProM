@@ -1,6 +1,6 @@
 import pandas as pd
 import argparse
-from EBProM.Modules.machine_learning import set_dataset, train_by_lightgbm_best_
+from machine_learning import *
 
 def main(train_csv, validation_csv):
     """
