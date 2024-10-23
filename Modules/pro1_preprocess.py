@@ -1,6 +1,6 @@
 import pandas as pd
 import argparse
-from EBProM.Modules.utils import *
+from utils import *
 
 def main(data_dir):
     """
