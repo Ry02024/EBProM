@@ -127,9 +127,11 @@ def fill_features(join_data_df10):
     product_ave_num = join_data_df10_feats.groupby('product_id').mean().loc[:, 'product_num_1': 'product_num_22'].mean(axis=1)
     product_ave_price = join_data_df10_feats.groupby('product_id').mean().loc[:, 'product_price_1': 'product_price_22'].mean(axis=1)
 
-    # 既存の列をfloat64にキャスト
-    join_data_df10['product_ave_num'] = join_data_df10['product_ave_num'].astype('float64', errors='ignore')
-    join_data_df10['product_ave_price'] = join_data_df10['product_ave_price'].astype('float64', errors='ignore')
+    # 'product_ave_num' と 'product_ave_price' 列を初期化（存在しない場合）
+    if 'product_ave_num' not in join_data_df10.columns:
+        join_data_df10['product_ave_num'] = 0.0
+    if 'product_ave_price' not in join_data_df10.columns:
+        join_data_df10['product_ave_price'] = 0.0
 
     for product_id in product_ave_num.index:
         join_data_df10.loc[join_data_df10['product_id'] == product_id, 'product_ave_num'] = float(product_ave_num[product_id])
@@ -139,9 +141,11 @@ def fill_features(join_data_df10):
     category_ave_num = join_data_df10.groupby('category_id').mean().loc[:, 'product_num_1': 'product_num_22'].mean(axis=1)
     category_ave_price = join_data_df10.groupby('category_id').mean().loc[:, 'product_price_1': 'product_price_22'].mean(axis=1)
 
-    # 既存の列をfloat64にキャスト
-    join_data_df10['category_ave_num'] = join_data_df10['category_ave_num'].astype('float64', errors='ignore')
-    join_data_df10['category_ave_price'] = join_data_df10['category_ave_price'].astype('float64', errors='ignore')
+    # 'category_ave_num' と 'category_ave_price' 列を初期化（存在しない場合）
+    if 'category_ave_num' not in join_data_df10.columns:
+        join_data_df10['category_ave_num'] = 0.0
+    if 'category_ave_price' not in join_data_df10.columns:
+        join_data_df10['category_ave_price'] = 0.0
 
     for category_id in category_ave_num.index:
         join_data_df10.loc[join_data_df10['category_id'] == category_id, 'category_ave_num'] = float(category_ave_num[category_id])
@@ -151,30 +155,31 @@ def fill_features(join_data_df10):
     store_ave_num = join_data_df10.groupby('store_id').mean().loc[:, 'product_num_1': 'product_num_22'].mean(axis=1)
     store_ave_price = join_data_df10.groupby('store_id').mean().loc[:, 'product_price_1': 'product_price_22'].mean(axis=1)
 
-    # 既存の列をfloat64にキャスト
-    join_data_df10['store_ave_num'] = join_data_df10['store_ave_num'].astype('float64', errors='ignore')
-    join_data_df10['store_ave_price'] = join_data_df10['store_ave_price'].astype('float64', errors='ignore')
+    # 'store_ave_num' と 'store_ave_price' 列を初期化（存在しない場合）
+    if 'store_ave_num' not in join_data_df10.columns:
+        join_data_df10['store_ave_num'] = 0.0
+    if 'store_ave_price' not in join_data_df10.columns:
+        join_data_df10['store_ave_price'] = 0.0
 
     for store_id in store_ave_num.index:
         join_data_df10.loc[join_data_df10['store_id'] == store_id, 'store_ave_num'] = float(store_ave_num[store_id])
         join_data_df10.loc[join_data_df10['store_id'] == store_id, 'store_ave_price'] = float(store_ave_price[store_id])
 
     # 特徴量生成2: 商品、カテゴリ、店舗ごとの組み合わせを生成
-    join_data_df10.insert(9, 'p_c_nun', join_data_df10['product_ave_num'] * join_data_df10['category_ave_num'])
-    join_data_df10.insert(10, 'p_s_nun', join_data_df10['product_ave_num'] * join_data_df10['store_ave_num'])
-    join_data_df10.insert(11, 'c_s_nun', join_data_df10['category_ave_num'] * join_data_df10['store_ave_num'])
-    join_data_df10.insert(12, 'p_c_price', join_data_df10['product_ave_price'] * join_data_df10['category_ave_price'])
-    join_data_df10.insert(13, 'p_s_price', join_data_df10['product_ave_price'] * join_data_df10['store_ave_price'])
-    join_data_df10.insert(14, 'c_s_price', join_data_df10['category_ave_price'] * join_data_df10['store_ave_price'])
+    join_data_df10['p_c_nun'] = join_data_df10['product_ave_num'] * join_data_df10['category_ave_num']
+    join_data_df10['p_s_nun'] = join_data_df10['product_ave_num'] * join_data_df10['store_ave_num']
+    join_data_df10['c_s_nun'] = join_data_df10['category_ave_num'] * join_data_df10['store_ave_num']
+    join_data_df10['p_c_price'] = join_data_df10['product_ave_price'] * join_data_df10['category_ave_price']
+    join_data_df10['p_s_price'] = join_data_df10['product_ave_price'] * join_data_df10['store_ave_price']
+    join_data_df10['c_s_price'] = join_data_df10['category_ave_price'] * join_data_df10['store_ave_price']
 
     # さらに複合特徴量を生成
-    join_data_df10.insert(15, 'p_c_s_nun', join_data_df10['product_ave_num'] * join_data_df10['category_ave_num'] * join_data_df10['store_ave_num'])
-    join_data_df10.insert(16, 'p_c_s_price', join_data_df10['product_ave_price'] * join_data_df10['category_ave_price'] * join_data_df10['store_ave_price'])
+    join_data_df10['p_c_s_nun'] = join_data_df10['product_ave_num'] * join_data_df10['category_ave_num'] * join_data_df10['store_ave_num']
+    join_data_df10['p_c_s_price'] = join_data_df10['product_ave_price'] * join_data_df10['category_ave_price'] * join_data_df10['store_ave_price']
 
     print("追加の特徴量生成が完了しました。")
     return join_data_df10
-
-
+    
 import pandas as pd
 
 def generate_sliding_window_datasets(df,
