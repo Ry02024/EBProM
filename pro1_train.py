@@ -1,6 +1,6 @@
 import pandas as pd
 import argparse
-from machine_learning import *
+from Modules.machine_learning import *
 
 def main(train_csv, validation_csv):
     """
