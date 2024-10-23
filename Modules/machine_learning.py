@@ -119,7 +119,9 @@ def train_by_lightgbm_best_(lgb_train, lgb_eval):
     - gbm: トレーニングされたLightGBMモデル
     """
     # ハイパーパラメータを設定
-    params = {'metric': 'rmse'}
+    params = {'metric': 'rmse',
+              'force_row_wise': True
+             }
 
     # コールバック関数の設定
     callbacks = [
