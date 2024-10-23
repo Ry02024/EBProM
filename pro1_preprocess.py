@@ -1,6 +1,6 @@
 import pandas as pd
 import argparse
-from utils import *
+from Modules.utils import *
 
 def main(data_dir):
     """
@@ -99,9 +99,9 @@ def main(data_dir):
     )
 
     # 処理後のデータを保存
-    train_df.to_csv('train_df.csv', index=False)
-    validation_df.to_csv('validation_df.csv', index=False)
-    sorted_test_df.to_csv('sorted_test_df.csv', index=False)
+    train_df.to_csv('EBProM/Data/Preprocess/train_df.csv', index=False)
+    validation_df.to_csv('EBProM/Data/Preprocess/validation_df.csv', index=False)
+    sorted_test_df.to_csv('EBProM/Data/Preprocess/sorted_test_df.csv', index=False)
 
     print("前処理が完了し、データが保存されました。")
 
