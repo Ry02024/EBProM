@@ -99,8 +99,9 @@ requirements.txt
 
 3. **モジュールのカスタマイズ**  
    必要に応じて、`Modules/`フォルダ内のスクリプトを編集し、カスタム処理を追加してください。
+   
 ## 参考
-2020年 AI Quest (SIGNATE)：KUBOKOさんのコード
+AI Quest 2020 (経産省、SIGNATE)：KUBOKOさんのコード
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
